@@ -16,6 +16,15 @@ allprojects {
   repositories {
     jcenter()
   }
+
+  ext {
+    manifestSrcFile = 'src/main/AndroidManifest.xml'
+
+    androidBuildToolsVersion = '25.0.2'
+    androidCompileSdkVersion = 25
+    androidMinSdkVersion = 16
+    androidTargetSdkVersion = 25
+  }
 }
 
 task clean(type: Delete) {

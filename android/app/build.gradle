@@ -1,27 +1,50 @@
+ext {
+  rootPackage = "com.glung.android"
+  package_version = "${System.env.PACKAGE_VERSION?: "no_version"}"
+  outputsDir = "$project.buildDir/outputs/apk"
+  packageName = "${rootPackage}-app-${package_version}"
+}
+
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "25.0.2"
+  compileSdkVersion rootProject.ext.androidCompileSdkVersion
+  buildToolsVersion rootProject.ext.androidBuildToolsVersion
+
   defaultConfig {
-    applicationId "glung.com.app"
     minSdkVersion 14
-    targetSdkVersion 25
-    versionCode 1
-    versionName "1.0"
+    versionCode 1     // auto-increment (?)
+    versionName "1.0" // auto-increment (?)
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     targetSdkVersion rootProject.ext.androidTargetSdkVersion
+    applicationId project.ext.rootPackage
   }
+
   buildTypes {
     release {
+      minifyEnabled true
+      applicationVariants.all { variant ->
+        renameAPK(variant)
+      }
+    }
+    debug {
       minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      applicationVariants.all { variant ->
+        renameAPK(variant)
+      }
     }
   }
 }
 
+def renameAPK(variant) {
+  variant.outputs.each { output ->
+    def folder = project.ext.outputsDir
+    def fileName = "${project.ext.packageName}.apk"
+    output.packageApplication.outputFile = new File(folder, fileName)
+  }
+}
+
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
