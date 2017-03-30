@@ -1,0 +1,17 @@
+#!/bin/bash    
+set -e
+
+# the directory of the script
+CDTOOLS_PATH=$(dirname "$0")
+
+APP_NAME="android_app"
+PACAKGE_VERSION=`${CDTOOLS_PATH}/package_version`
+FETCH_PATH="${CDTOOLS_PATH}/.fetched_files"
+
+PUBLISH_PATH="/tmp/REPOSITORY/${APP_NAME}/TEST/${PACAKGE_VERSION}"
+FETH_PATH="${FETCH_PATH}/${PACAKGE_VERSION}"
+
+mkdir -p ${FETH_PATH}
+cp -r ${PUBLISH_PATH}/* ${FETH_PATH}
+
+echo ${FETH_PATH}

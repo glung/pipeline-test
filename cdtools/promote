@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e 
+
+echo "!!! PROMOTE IS NOT IMPLEMENTED !!!"
+exit 1

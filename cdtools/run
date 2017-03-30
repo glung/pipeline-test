@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e 
+
+CDTOOLS_PATH=$(dirname "$0")
+COMMAND=$1
+
+PACKAGE_PATH=`${CDTOOLS_PATH}/fetch`
+${PACKAGE_PATH}/${COMMAND}

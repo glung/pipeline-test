@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e 
+
+APPLICAITION_ID=$1
+LOCAL_APK_PATH=$2
+DEVICE_PAK_PATH=/data/local/tmp/${APPLICAITION_ID}
+
+adb shell am force-stop ${APPLICAITION_ID}
+adb push ${LOCAL_APK_PATH} ${DEVICE_PAK_PATH}
+adb shell pm install -r "${DEVICE_PAK_PATH}"
+
+
+

@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e 
+
+PACKAGE_SOURCE=$1
+CDTOOLS_PATH=$(dirname "$0")
+PACKAGE_PATH=`${CDTOOLS_PATH}/package_target_path`
+
+mkdir -p ${PACKAGE_PATH} && cp -r ${PACKAGE_SOURCE} ${PACKAGE_PATH}

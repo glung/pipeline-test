@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e 
+
+CDTOOLS_PATH=$(dirname "$0")
+PACKAGE_PATH=`${CDTOOLS_PATH}/package_target_path`
+
+rm -rf ${PACKAGE_PATH}

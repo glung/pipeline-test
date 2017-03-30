@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e 
+
+APP_NAME="android_app"
+
+CDTOOLS_PATH=$(dirname "$0")
+PACKAGE_PATH=`${CDTOOLS_PATH}/package_target_path`
+PACAKGE_VERSION=`${CDTOOLS_PATH}/package_version`
+
+PUBLISH_TARGET="/tmp/REPOSITORY/${APP_NAME}/TEST/${PACAKGE_VERSION}"
+
+mkdir -p ${PUBLISH_TARGET} && cp ${PACKAGE_PATH}/* ${PUBLISH_TARGET}

@@ -1,8 +1,7 @@
 ext {
   rootPackage = "com.glung.android"
-  package_version = "${System.env.PACKAGE_VERSION?: "no_version"}"
   outputsDir = "$project.buildDir/outputs/apk"
-  packageName = "${rootPackage}-app-${package_version}"
+  packageName = "${rootPackage}-app"
 }
 
 apply plugin: 'com.android.application'
@@ -24,23 +23,20 @@ android {
     release {
       minifyEnabled true
       applicationVariants.all { variant ->
-        renameAPK(variant)
+        renameAPK(variant, "release")
       }
     }
     debug {
       minifyEnabled false
-      applicationVariants.all { variant ->
-        renameAPK(variant)
-      }
     }
   }
 }
 
-def renameAPK(variant) {
+def renameAPK(variant, postfix) {
   variant.outputs.each { output ->
     def folder = project.ext.outputsDir
-    def fileName = "${project.ext.packageName}.apk"
-    output.packageApplication.outputFile = new File(folder, fileName)
+    def fileName = "${project.ext.packageName}-${postfix}.apk"
+    output.outputFile = new File(folder, fileName)
   }
 }
 

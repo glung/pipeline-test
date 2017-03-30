@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e 
+
+BIN_PATH=$(dirname "$0")
+
+${BIN_PATH}/deploy-apk com.glung.android com.glung.android-app-release.apk
+${BIN_PATH}/deploy-apk com.glung.android.test app-debug-androidTest.apk

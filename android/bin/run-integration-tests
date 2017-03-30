@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e 
+
+TEST_APP=com.glung.android.test
+TEST_RUNNER=android.support.test.runner.AndroidJUnitRunner
+
+adb shell am instrument -w -r -e debug false ${TEST_APP}/${TEST_RUNNER}
+
