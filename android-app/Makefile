@@ -4,30 +4,33 @@ BUILD_DIR=./app/build/outputs/apk
 BUILD_USER_APP_NAME=com.glung.android-app-release.apk
 BUILD_INTRUMENTATION_APP_PATH_APP_NAME=app-debug-androidTest.apk
 
+DOCKER_WORKSPACE=/opt/workspace
+CONTAINER_RUN=$(CDTOOLS_PATH)/container-run -e GRADLE_USER_HOME="$(DOCKER_WORKSPACE)/.gradle" -e ANDROID_HOME="$(DOCKER_WORKSPACE)/.android" glung/android-sdk 
+
 .PHONY: clean
 clean:
-	./gradlew clean
+	$(CONTAINER_RUN) /bin/bash -c "bin/set-up-android-sdk-env; ./gradlew clean"
 
 
 .PHONY: static-analysis
 static-analysis:
-	./gradlew static-analysis
+	$(CONTAINER_RUN) /bin/bash -c "bin/set-up-android-sdk-env; ./gradlew lint"
 
 
 .PHONY: unit-tests
 unit-tests:
 	# TODO : run on device
-	./gradlew test
+	$(CONTAINER_RUN) /bin/bash -c "bin/set-up-android-sdk-env; ./gradlew test"
 
 
 .PHONY: build-release-app
 build-release-app: 
-	./gradlew assembleRelease
+	$(CONTAINER_RUN) /bin/bash -c "bin/set-up-android-sdk-env; ./gradlew assembleRelease"
 
 
 .PHONY: build-instrumentation-app
 build-instrumentation-app: 
-	./gradlew assembleAndroidTest 
+	$(CONTAINER_RUN) /bin/bash -c "bin/set-up-android-sdk-env; ./gradlew assembleAndroidTest"
 
 
 .PHONY: layout-package
@@ -36,6 +39,7 @@ layout-package:
 	$(CDTOOLS_PATH)/add_file $(BUILD_DIR)/$(BUILD_USER_APP_NAME)
 	$(CDTOOLS_PATH)/add_file $(BUILD_DIR)/$(BUILD_INTRUMENTATION_APP_PATH_APP_NAME)
 	$(CDTOOLS_PATH)/add_file bin
+
 
 .PHONY: package
 package: layout-package
