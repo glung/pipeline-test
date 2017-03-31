@@ -22,6 +22,9 @@ unit-tests:
 	# TODO : run on device
 	$(CONTAINER_RUN) /bin/bash -c "bin/set-up-android-sdk-env; ./gradlew test"
 
+.PHONY: build
+buid: build-release-app build-instrumentation-app
+
 
 .PHONY: build-release-app
 build-release-app: 
@@ -84,4 +87,9 @@ promote-to-stable:
 .PHONY: promote-to-release
 promote-to-release: 
 	$(CDTOOLS_PATH)/promote release
+
+
+.PHONY: run-container
+run-container:
+	$(CONTAINER_RUN) /bin/bash 
 
