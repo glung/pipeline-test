@@ -1,6 +1,18 @@
 #!/bin/sh
 set -e 
 
-pwd
-ls
-docker run --interactive --rm --volume=$(pwd):/opt/workspace --workdir=/opt/workspace "$@"
+if [ "$(uname)" == "Darwin" ]; then
+    PLATFORM_OPTIONS=""
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+	# https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/
+	PLATFORM_OPTIONS="-v /var/run/docker.sock:/var/run/docker.sock -v /data:/data"								 	
+fi
+
+PWD=$(pwd)
+docker run ${PLATFORM_OPTIONS}	\
+	-e HOME=${PWD}				\
+	-v ${PWD}:${PWD} 			\
+	-w ${PWD} 					\
+	--interactive 										\
+	--rm 										 		\
+	"$@"
