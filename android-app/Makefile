@@ -9,7 +9,7 @@ CONTAINER_RUN=$(CDTOOLS_PATH)/container-run -e GRADLE_USER_HOME="$(DOCKER_WORKSP
 
 .PHONY: clean
 clean:
-	$(CONTAINER_RUN) /bin/bash -c "bin/set-up-android-sdk-env; ./gradlew clean"
+	$(CONTAINER_RUN) /bin/bash -c "echo "CONTAINER"; pwd ; ls ; bin/set-up-android-sdk-env; ./gradlew clean"
 
 
 .PHONY: static-analysis

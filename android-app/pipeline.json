@@ -38,8 +38,7 @@
                 "timeout": 0,
                 "environment_variables": [],
                 "resources": [],
-                "tasks": [
-                {
+                "tasks": [{
                     "type": "exec",
                     "attributes": {
                         "run_if": [
@@ -49,8 +48,7 @@
                         "arguments": [],
                         "working_directory": "dest/android-app"
                     }
-                },
-                    {
+                }, {
                     "type": "exec",
                     "attributes": {
                         "run_if": [
