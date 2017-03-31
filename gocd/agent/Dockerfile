@@ -12,5 +12,8 @@ RUN apt-get install -y docker-ce
 
 # Grant privilages to access /var/run/docker.sock
 RUN usermod -aG staff go
-RUN AGENT_WORK_DIR=/data/go-agent/workspace
-RUN export AGENT_WORK_DIR
+
+ADD docker-entrypoint-hack.sh /
+
+# Entry updated to use a folders path suitable for the host too.
+ENTRYPOINT ["/docker-entrypoint-hack.sh"]
