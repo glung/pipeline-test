@@ -8,7 +8,7 @@
         "materials": [{
             "type": "git",
             "attributes": {
-                "url": "/server/repo",
+                "url": "git@github.com:glung/pipeline-test.git",
                 "destination": "dest",
                 "filter": null,
                 "invert_filter": false,
