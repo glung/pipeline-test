@@ -23,7 +23,7 @@ unit-tests:
 	$(CONTAINER_RUN) /bin/bash -c "bin/set-up-android-sdk-env; ./gradlew test"
 
 .PHONY: build
-buid: build-release-app build-instrumentation-app
+build: build-release-app build-instrumentation-app
 
 
 .PHONY: build-release-app

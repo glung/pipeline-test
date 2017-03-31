@@ -57,8 +57,9 @@
                         "command": "make",
                         "arguments": [
                           "clean",
-                          "unit-test",
-                          "instal"
+                          "unit-tests",
+                          "build",
+                          "package"
                         ],
                         "working_directory": "dest/android-app"
                     }
