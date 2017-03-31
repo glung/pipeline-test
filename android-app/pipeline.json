@@ -3,12 +3,12 @@
     "pipeline": {
         "label_template": "${COUNT}-${git[:7]}",
         "enable_pipeline_locking": true,
-        "name": "android-ap",
+        "name": "android-app",
         "template": null,
         "materials": [{
             "type": "git",
             "attributes": {
-                "url": "/Users/guillaume/Documents/Development/Repositories/pipeline-tests",
+                "url": "/server/repo",
                 "destination": "dest",
                 "filter": null,
                 "invert_filter": false,
@@ -38,7 +38,19 @@
                 "timeout": 0,
                 "environment_variables": [],
                 "resources": [],
-                "tasks": [{
+                "tasks": [
+                {
+                    "type": "exec",
+                    "attributes": {
+                        "run_if": [
+                            "passed"
+                        ],
+                        "command": "ls",
+                        "arguments": [],
+                        "working_directory": "dest/android-app"
+                    }
+                },
+                    {
                     "type": "exec",
                     "attributes": {
                         "run_if": [
@@ -48,9 +60,9 @@
                         "arguments": [
                           "clean",
                           "unit-test",
-                          "static-analytis"
+                          "instal"
                         ],
-                        "working_directory": null
+                        "working_directory": "dest/android-app"
                     }
                 }]
             }]
