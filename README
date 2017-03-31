@@ -12,9 +12,9 @@ There are 2 solutions:
  		i.e. container should mount the volumes from the same places because (a/b/c on host, and all containers)
  	-> the agent checkout once 
  	-> start containers multiple times and they need to access the files (from the host)
- 	=> PB: GOCD agent changes the workdir to something like "/go/pipelines/android-app/dest" :/
- 		-> Apparently there is a possibility to setup the workdir (https://github.com/soundcloud/dev-s-cloud-net/blob/34ab017729a69ebaeb9fc5d709e92bc21c63c299/go-cd/go-agent/files/root/etc/default/go-agent)
- 		-> The WORKDIR would need to match something on the host, i.e. easier if it is linux to linuc (maybe on a VM)
+ 	=> PB: Needs to change the docker-entrypoint.sh official script to map 
+ 	to a different workspace
+ 	-> should I create an issue on the github project to make it configurable?
 
 IDEALLY: 
 - [x] Compile in android-sdk container (cf chronicles sbt image)
