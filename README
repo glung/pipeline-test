@@ -1,0 +1,54 @@
+TODO
+- [ ] gocd pipeline
+-> This turns out to be incredibly challenging :
+ - Docker is not designed to run docker inside docker (https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/)
+ - The Makefile uses docker 
+ - The agent is a docker container
+ => The CI tries to run docker inside docker
+
+There are 2 solutions:
+ 1 / The agent does not use docker - then docker needs to be installed in the go/agent
+ 2 / The agent is a docker container - the workspace must be shared among containers, 
+ 		i.e. container should mount the volumes from the same places because (a/b/c on host, and all containers)
+ 	-> the agent checkout once 
+ 	-> start containers multiple times and they need to access the files (from the host)
+ 	=> PB: GOCD agent changes the workdir to something like "/go/pipelines/android-app/dest" :/
+ 		-> Apparently there is a possibility to setup the workdir (https://github.com/soundcloud/dev-s-cloud-net/blob/34ab017729a69ebaeb9fc5d709e92bc21c63c299/go-cd/go-agent/files/root/etc/default/go-agent)
+ 		-> The WORKDIR would need to match something on the host, i.e. easier if it is linux to linuc (maybe on a VM)
+
+IDEALLY: 
+- [x] Compile in android-sdk container (cf chronicles sbt image)
+- [x] Optional : Package + android-tools docker image
+- [ ] Optional : Provision device(s) (docker image)
+
+
+-> EXAMPLE PIPELINE
+
+#1 unit-tests
+
+Job: compile_unit-tests_package_publish
+$ make unit-test package publish publish-deploy
+
+#2 integration-tests
+
+Job: functional-tests
+$ git clean -fdx .
+$ make remove-containers functional-test 
+|-> $(DOCKER_COMPOSE) run --user=$(HOST_UID) --rm functional-test
+|-> entrypoint: ./bin/wait-for-it.sh -t 300 api:9090 -- ./bin/run-integration-tests.sh
+
+Job: contract-tests
+$ make contract-test-and-upload
+
+Job: paywall-tests
+$ git clean -fdx .
+$ make remove-containers paywall-tests
+
+#3: Promote
+Job: promote
+
+$ make promote-to-stable
+
+#4: Deploy-env
+Job: deploy
+$ make deploy-env
