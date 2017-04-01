@@ -50,12 +50,12 @@ setup_autoregister_properties_file() {
   fi
 }
 
-ROOT_PATH="/tmp/data/go-agent/$(hostname)"
-VOLUME_DIR="${ROOT_PATH}/godata"
+AGENT_ROOT_PATH="${AGENT_ROOT_PATH:-""}"
+VOLUME_DIR="${AGENT_ROOT_PATH}/godata"
 
 # these 3 vars are used by `/go-agent/agent.sh`, so we export
-export AGENT_WORK_DIR="${ROOT_PATH}/workspace/"
-export STDOUT_LOG_FILE="${ROOT_PATH}/go/go-agent-bootstrapper.out.log"
+export AGENT_WORK_DIR="${AGENT_ROOT_PATH}/go"
+export STDOUT_LOG_FILE="${AGENT_ROOT_PATH}/go/go-agent-bootstrapper.out.log"
 
 # no arguments are passed so assume user wants to run the gocd server
 # we prepend "/go-agent/agent.sh" to the argument list
