@@ -5,13 +5,12 @@ docker run \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		--interactive \
 		--rm \
-		--volume=/Users/guillaume/Dropbox/Developpement/Repositories/pipeline-tests:/server/repo \
 		-v $(AGENT_ROOT_PATH):$(AGENT_ROOT_PATH) -e AGENT_ROOT_PATH=$(AGENT_ROOT_PATH) 
 endef
 
 .PHONY: server
 server:
-	../cdtools/container-run -d --rm -p8153:8153 -p8154:8154 --volume=/Users/guillaume/Dropbox/Developpement/Repositories/pipeline-tests:/server/repo gocd/gocd-server:v17.3.0
+	../cdtools/container-run -d --rm -p8153:8153 -p8154:8154
 
 .PHONY: agent
 agent:
