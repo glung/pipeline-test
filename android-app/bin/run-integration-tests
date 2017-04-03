@@ -1,8 +1,16 @@
 #!/bin/sh
 set -e 
 
-TEST_APP=com.glung.android.test
-TEST_RUNNER=android.support.test.runner.AndroidJUnitRunner
+echo "SPOON"
 
-adb shell am instrument -w -r -e debug false ${TEST_APP}/${TEST_RUNNER}
+CDTOOLS_PATH=$(dirname "$0")
+APK_PATH="${CDTOOLS_PATH}/.."
+pwd
+ls 
 
+echo ${CDTOOLS_PATH}
+ls ${CDTOOLS_PATH}
+
+java -jar ${CDTOOLS_PATH}/spoon-runner-1.7.1-jar-with-dependencies.jar \
+    --apk ${APK_PATH}/com.glung.android-app-release.apk \
+    --test-apk ${APK_PATH}/app-debug-androidTest.apk

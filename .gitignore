@@ -6,3 +6,4 @@ target/
 .fetched_files/
 .android
 .gradle
+spoon-output
