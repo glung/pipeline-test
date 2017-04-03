@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e 
 
 SERVER_URL=http://localhost:8153

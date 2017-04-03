@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e 
 
 GOCD_TOOLS_PATH=$(dirname "$0")
