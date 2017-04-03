@@ -4,8 +4,17 @@ BUILD_DIR=./app/build/outputs/apk
 BUILD_USER_APP_NAME=com.glung.android-app-release.apk
 BUILD_INTRUMENTATION_APP_PATH_APP_NAME=app-debug-androidTest.apk
 
-current_dir = $(shell pwd)
-CONTAINER_RUN=$(CDTOOLS_PATH)/container-run -e GRADLE_USER_HOME="$(current_dir)/.gradle" -e ANDROID_HOME="$(current_dir)/.android" glung/android-sdk 
+GRADLE_USER_HOME=$${GRADLE_USER_HOME:-"$${HOME}/.gradle"}
+ANDROID_HOME=$${ANDROID_HOME:-"$${HOME}/.android"}
+
+define CONTAINER_RUN
+$(CDTOOLS_PATH)/container-run \
+	--user root \
+	-e GRADLE_USER_HOME=$(GRADLE_USER_HOME) -v $(GRADLE_USER_HOME):$(GRADLE_USER_HOME) \
+	-e ANDROID_HOME=$(ANDROID_HOME) -v $(ANDROID_HOME):$(ANDROID_HOME) \
+	glung/android-sdk 
+endef
+
 
 .PHONY: clean
 clean:
