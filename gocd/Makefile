@@ -1,4 +1,4 @@
-AGENT_ROOT_PATH=/tmp/data/go-agent/$(shell date +"%s")
+AGENT_ROOT_PATH=/data/go-agent/$(shell date +"%s")
 
 define DOCKER_RUN
 docker run \
