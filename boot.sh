@@ -3,6 +3,7 @@ set -x
 
 apt install -y docker.io
 apt install -y make
+chmod 666 /var/run/docker.sock
 
 REPO=`pwd`
 
