@@ -1,23 +1,12 @@
+
+NOTE:
+- Require around 4GB of ram, i.e. 40$/month on digital ocean
+
 TODO
 - [ ] gocd pipeline
--> This turns out to be incredibly challenging :
- - Docker is not designed to run docker inside docker (https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/)
- - The Makefile uses docker 
- - The agent is a docker container
- => The CI tries to run docker inside docker
-
-There are 2 solutions:
- 1 / The agent does not use docker - then docker needs to be installed in the go/agent
- 2 / The agent is a docker container - the workspace must be shared among containers, 
- 		i.e. container should mount the volumes from the same places because (a/b/c on host, and all containers)
- 	-> the agent checkout once 
- 	-> start containers multiple times and they need to access the files (from the host)
- 	=> PB: Needs to change the docker-entrypoint.sh official script to map 
- 	to a different workspace
- 	-> should I create an issue on the github project to make it configurable?
 
 IDEALLY: 
-- [x] Compile in android-sdk container (cf chronicles sbt image)
+- [x] Compile in android-sdk container
 - [x] Optional : Package + android-tools docker image
 - [ ] Optional : Provision device(s) (docker image)
 
