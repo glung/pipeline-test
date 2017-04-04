@@ -4,6 +4,8 @@ NOTE:
 
 TODO
 - [ ] gocd pipeline
+- [ ] Watch commits
+- [ ] Run tests on devices
 
 IDEALLY: 
 - [x] Compile in android-sdk container
